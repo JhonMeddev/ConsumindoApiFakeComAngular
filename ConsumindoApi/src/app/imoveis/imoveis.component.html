@@ -1,0 +1,182 @@
+
+
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Teste Técnico - Brunsker</a>
+
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Sem Função" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"> Simples </button>
+      </form>
+  </div>
+       </nav>
+
+
+
+       <div class="container text-center border mt-5">
+
+  <h1>Anunciar Imovel</h1>
+
+    <form class="mt-5">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label>Nome do Imovel</label>
+          <input [(ngModel)]='imovel.nome' name="name" type="text" class="form-control" id="titulo" placeholder="Digite o titulo">
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Valor do Imovel</label>
+          <input [(ngModel)]='imovel.valor' name="valorImovel" type="text" class="form-control" placeholder="R$ 0000">
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Valor do condominio</label>
+          <input [(ngModel)]='imovel.condominio' name="valorCod" type="text" class="form-control" placeholder="R$ 0000">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="form-group col-md-2">
+          <label>Numero de Quartos</label>
+          <input [(ngModel)]='imovel.quartos' name="quartosImovel" type="number" class="form-control">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Numero de banheiros</label>
+          <input [(ngModel)]='imovel.banheiros' name="banheirosImovel" type="number" class="form-control">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Area</label>
+          <input [(ngModel)]='imovel.area' name="areaImovel" type="text" class="form-control" placeholder="Qual a área do imovel ?">
+        </div>
+
+      </div>
+
+      <div class="row mt-5">
+
+        <div class="form-group col-md-3">
+          <label>Tipo de Imovel</label>
+          <select [(ngModel)]='imovel.tipo' [ngModelOptions]="{standalone: true}">
+            <option value="casa">Casa</option>
+            <option value="apartamento">Apartamento</option>
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label>Venda</label>
+          <select [(ngModel)]='imovel.venda' [ngModelOptions]="{standalone: true}">
+            <option [ngValue]="false">Não</option>
+            <option [ngValue]="true">Sim</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Aluguel</label>
+          <select [(ngModel)]='imovel.aluguel' [ngModelOptions]="{standalone: true}">
+            <option [ngValue]="false">Não</option>
+            <option [ngValue]="true">Sim</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Mobiliado</label>
+          <select [(ngModel)]='imovel.mobiliado' [ngModelOptions]="{standalone: true}">
+            <option [ngValue]="false">Não</option>
+            <option [ngValue]="true">Sim</option>
+          </select>
+        </div>
+
+      </div>
+
+      <h1 class="text-left mt-5">Endereço do imovel</h1>
+      <form #f="ngForm">
+
+        <div class="row" >
+
+           <div class="form-group col-md-2">
+            <label for="cep">CEP:</label>
+            <input type="text" class="form-control"  id="cep" name="cep" [(ngModel)]="imovel.cep"  #cep="ngModel" (blur)="consultaCEP(cep.value , f)">
+           </div>
+
+          <div class="form-group col-md-6">
+          <label for="logradouro">Rua</label>
+          <input type="text" class="form-control" id="logradouro" name="logradouro" [(ngModel)]="imovel.rua" #logradouro="ngModel" placeholder="...">
+          </div>
+
+          <div class="form-group col-md-4">
+          <label for="bairro">Bairro</label>
+          <input type="text" class="form-control" id="bairro" name="bairro" [(ngModel)]="imovel.bairro" #bairro="ngModel" placeholder="...">
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <label for="cidade">Cidade</label>
+            <input type="text"  class="form-control" id="cidade" name="cidade" [(ngModel)]="imovel.cidade" #cidade="ngModel" placeholder="...">
+          </div>
+
+          <div class="col-md-1">
+          <label for="uf">Estado</label>
+          <input type="text" class="form-control" id="uf" name="uf" [(ngModel)]="imovel.uf" #uf="ngModel" placeholder="...">
+        </div>
+
+        </div>
+
+
+        </form>
+
+        <div class="col-md-1">
+          <label for="inputZip">Numero</label>
+          <input [(ngModel)]='imovel.numero' name="numeroImovel" type="text" class="form-control" id="inputZip">
+          </div>
+
+
+
+      <div class="form-group col-md-3 mt-5">
+        <label for="inputState">Nome Proprietario</label>
+        <input [(ngModel)]='imovel.nomeProprietario' name="proprietarioImovel" type="text" class="form-control" id="inputCity">
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-5 mb-5" (click)='publicar()'>Anunciar</button>
+    </form>
+
+
+       </div>
+
+
+
+       <h1 class="mt-5 text-center">Imoveis a Venda</h1>
+
+       <div class="container-fluid ml-5 mr-5 m-5 row">
+
+  <div class="card m-5" style="width: 18rem;" *ngFor="let dados of listaImoveis">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body text-dark">
+      <h5 class="card-title">{{dados.nome}}</h5>
+      <p class="card-text">Preço: {{dados.valor}}R$</p>
+      <p class="card-text">Valor Condominio: {{dados.condominio}}R$</p>
+      <p class="card-text">Local: {{dados.cidade}}-{{dados.uf}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Tipo: {{dados.tipo}}</li>
+      <li class="list-group-item">Proprietatio: {{dados.nomeProprietario}}</li>
+    </ul>
+    <div class="card-body">
+      <button type="button" class="btn btn-info pr-5">Saiba mais</button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
